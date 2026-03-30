@@ -86,3 +86,7 @@ print("hora final: ", int(horaFinal), ":", minutosFinal)
 # Cambiamos las horas para que sean de 0 a 23
 horaFinal = int(horaFinal) % 24
 print("hora final: ", int(horaFinal), ":", minutosFinal)
+
+horaInicialSeparada[0] = str(horaFinal)
+horaInicialSeparada[1] = str(minutosFinal)  # minutosFinal
+print(f"la hora es: {':'.join(horaInicialSeparada)}")  # ":".join(horaInicialSeparada)
