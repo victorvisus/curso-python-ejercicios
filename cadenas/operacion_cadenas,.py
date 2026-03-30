@@ -52,10 +52,6 @@ print(challenge.count("y"))  # 3
 print(challenge.count("y", 7, 14))  # 1, cuenta entre índices 7 y 14
 print(challenge.count("th"))  # 2
 
-# endswith(): determina si la cadena termina con la subcadena dada; devuelve True o False
-challenge = "thirty days of python"
-print(challenge.endswith("on"))  # True
-print(challenge.endswith("tion"))  # False (no termina con 'tion')
 
 # find(): devuelve el índice de la primera aparición de una subcadena; si no se encuentra devuelve -1
 challenge = "thirty days of python"
@@ -119,6 +115,11 @@ print(challenge.split(", "))  # ['thirty', 'days', 'of', 'python']
 # startswith(): determina si la cadena comienza con la subcadena especificada
 challenge = "thirty days of python"
 print(challenge.startswith("thirty"))  # True
+
+# endswith(): determina si la cadena termina con la subcadena dada; devuelve True o False
+challenge = "thirty days of python"
+print(challenge.endswith("on"))  # True
+print(challenge.endswith("tion"))  # False (no termina con 'tion')
 
 challenge = "30 days of python"
 print(challenge.startswith("thirty"))  # False (no empieza con 'thirty')

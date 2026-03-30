@@ -17,7 +17,7 @@
 16 ¿Cuál es el índice del último carácter de 'Coding For All'?
 17 ¿Qué carácter está en el índice 10 de 'Coding For All'?
 18 Crea una sigla (acrónimo) a partir de 'Python For Everyone'.
-19 Crea una sigla a partir de 'Coding For All'.
+Hecho - 19 Crea una sigla a partir de 'Coding For All'.
 20 Usando index, determina la primera aparición de la letra 'C' en 'Coding For All'.
 21 Usando index, determina la primera aparición de la letra 'F' en 'Coding For All'.
 22 Usa rfind para determinar la última aparición de 'l' en 'Coding For All People'.
@@ -26,13 +26,13 @@
 25 Elimina la frase 'because because because' de: 'You cannot end a sentence with because because because is a conjunction'.
 26 Encuentra la primera aparición de la palabra 'because' en: 'You cannot end a sentence with because because because is a conjunction'.
 27 Elimina la frase 'because because because' de la oración anterior.
-28 ¿La cadena 'Coding For All' empieza con la subcadena 'Coding'?
-29 ¿La cadena 'Coding For All' termina con la subcadena 'coding'?
+hecho - 28 ¿La cadena 'Coding For All' empieza con la subcadena 'Coding'?
+hecho - 29 ¿La cadena 'Coding For All' termina con la subcadena 'coding'?
 30 Elimina los espacios en blanco a la izquierda y derecha de la cadena '   Coding For All      '.
 31 Usando isidentifier(), ¿cuál de las siguientes devuelve True?
     30DaysOfPython
     thirty_days_of_python
-32 Dada la lista ['Django', 'Flask', 'Bottle', 'Pyramid', 'Falcon'], únela en una cadena separada por espacios.
+hecho - 32 Dada la lista ['Django', 'Flask', 'Bottle', 'Pyramid', 'Falcon'], únela en una cadena separada por espacios.
 33 Usa la secuencia de escape de nueva línea para separar las siguientes oraciones:
     I am enjoying this challenge.
     I just wonder what is next.
@@ -54,11 +54,28 @@
 
 """
 
-# .join()
-web_tech = ["HTML", "CSS", "JavaScript", "React"]
-result = " ".join(web_tech)
-print(result)  # 'HTML CSS JavaScript React' (devuelve la cadena unida)
+# 19 Crea una sigla a partir de 'Coding For All'.
+# cortar en " " y añadir cada elemento a un array, despues extraer el primer indice de cada elemento str del array
+print("\n-- 19 Crea una sigla a partir de 'Coding For All'. ----")
+challenge = "Coding For All"
+siglaArray = challenge.split(" ")
+sigla = siglaArray[0][0] + siglaArray[1][0] + siglaArray[2][0]
+print(sigla)
 
-web_tech = ["HTML", "CSS", "JavaScript", "React"]
-result = "# ".join(web_tech)
-print(result)  # 'HTML# CSS# JavaScript# React'
+# 28 ¿La cadena 'Coding For All' empieza con la subcadena 'Coding'?
+
+print(
+    "\n¿La cadena 'Coding For All' empieza con la subcadena 'Coding'?",
+    challenge.startswith("Coding"),
+)
+# 29 ¿La cadena 'Coding For All' termina con la subcadena 'coding'?
+print(
+    "\n¿La cadena 'Coding For All' termina con la subcadena 'coding'?",
+    challenge.endswith("Coding"),
+)
+
+
+# 32 Dada la lista ['Django', 'Flask', 'Bottle', 'Pyramid', 'Falcon'], únela en una cadena separada por espacios.
+print("\n-- 32 Separa la cadena. ----")
+palabras = ["Django", "Flask", "Bottle", "Pyramid", "Falcon"]
+print(f"Cadena: {' '.join(palabras)}")
