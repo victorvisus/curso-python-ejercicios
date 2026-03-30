@@ -50,20 +50,19 @@ Tanto hora inicial como minutos se piden al usuario.
 # Paso 1: entender qué es una hora en el contexto: "una hora es 14 por un lado + : dos puntos + 04 por otro lado"
 # Paso 1.1: como del usuario por defecto se toma str: se requiere separar la hora y los minutos de las hora que nos dan
 
-horaInicial = "14:04"  # Esta se debe pedir por teclado
-horaInicialSeparada = horaInicial.split(":")
-print(horaInicialSeparada)
 
-horas = horaInicialSeparada[0]
-minutos = horaInicialSeparada[1]
-print(horas, "horas y ", minutos, " minutos")
+horaInicial = input("Introduce la hora inicial (formato hh:mm): ")
+
+horaInicialSeparada = horaInicial.split(":")
+
+horas = int(horaInicialSeparada[0])  # horaInicialSeparada[0]
+minutos = int(horaInicialSeparada[1])  # horaInicialSeparada[1]
 
 # Paso 2: convertir la hora inicial a minutos
-minutosIniciales = int(horas) * 60 + int(minutos)
-print("las ", horaInicial, " son ", minutosIniciales, " minutos")
+minutosIniciales = horas * 60 + minutos
 
 # Paso 3: pedir los minutos a sumar
-minutosAsumar = 30  # Esta se debe pedir por teclado
+minutosAsumar = int(input("Introduce los minutos a sumar: "))
 
 # Paso 3.1: sumar los minutos a los minutos iniciales
 minutosFin = minutosIniciales + minutosAsumar
@@ -72,13 +71,18 @@ print("Minutos finales: ", minutosFin)
 # Paso 4: convertir los minutos finales a horas y minutos
 horaFinal = minutosFin / 60
 print("hora final: ", horaFinal)
-""" Opcion larga """
-minutosFinal = horaFinal - int(horaFinal)
-print(
-    "minutos finales: ", int(minutosFinal * 60)
-)  # me falta 1 minuto, por convertirlo a int
 
-""" Opcion con %
+""" Opcion larga
+minutosFinal = horaFinal - int(horaFinal)
+print("minutos finales: ", int(minutosFinal * 60))
+"""
+""" Opcion con % """
 minutosFinal = minutosFin % 60
 print("minutos finales: ", minutosFinal)
-"""
+
+print("hora final: ", int(horaFinal), ":", minutosFinal)
+
+"""Cambiamos de dia"""
+# Cambiamos las horas para que sean de 0 a 23
+horaFinal = int(horaFinal) % 24
+print("hora final: ", int(horaFinal), ":", minutosFinal)
