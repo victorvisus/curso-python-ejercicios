@@ -146,7 +146,7 @@ fruits_copy[0] = "apple"
 print("frutas nuevo modificado ", fruits_copy)  # ['apple', 'orange', 'mango', 'lemon']
 
 """
- Unir listas
+Unir listas
 """
 print("\n-- Unir listas -----------------------------------------------------")
 fruits = ["banana", "orange", "mango", "lemon"]
