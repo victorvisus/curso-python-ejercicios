@@ -67,7 +67,5 @@ def productoEscalar():
 
 print(productoEscalar())
 
-matriz = [[3, 2, 0, -1, 5], [3, 1, -5, 0, 4]]
-listCompre = [num for row in matriz for num in row]
-# number for row in list_of_lists for number in row
-print(listCompre)
+multiplicacion_escalar = sum([listUno[i] * listDos[i] for i in range(0, len(listUno))])
+print(multiplicacion_escalar)
