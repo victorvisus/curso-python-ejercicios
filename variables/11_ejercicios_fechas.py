@@ -5,7 +5,7 @@
 4 Calcula la diferencia entre ahora y el próximo año nuevo.
 5 Calcula la diferencia entre el 1 de enero de 1970 y ahora.
 6 Piensa: ¿para qué puedes usar el módulo datetime? Por ejemplo:
-    Análisis de series temporales
-    Obtener timestamps para eventos en una aplicación
-    Añadir la fecha de publicación en un blog
+    - Análisis de series temporales
+    - Obtener timestamps para eventos en una aplicación
+    - Añadir la fecha de publicación en un blog
 """
