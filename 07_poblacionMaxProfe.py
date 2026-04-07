@@ -3,7 +3,7 @@ import json
 
 # Accede al archivo de datos countries-data.py.
 def acceder_countries_data():
-    archivoPY = "./ficheros/countries-data.py"
+    archivoPY = "./data/countries-data.py"
     try:
         with open(archivoPY, "r", encoding="utf-8") as f:
             contenido = f.read()
