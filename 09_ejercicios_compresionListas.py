@@ -69,3 +69,49 @@ print(productoEscalar())
 
 multiplicacion_escalar = sum([listUno[i] * listDos[i] for i in range(0, len(listUno))])
 print(multiplicacion_escalar)
+
+
+"""
+3 Crea la siguiente lista de tuplas usando una comprensión de listas:
+    [(0, 1, 0, 0, 0, 0, 0),
+    (1, 1, 1, 1, 1, 1, 1),
+    (2, 1, 2, 4, 8, 16, 32),
+    (3, 1, 3, 9, 27, 81, 243),
+    (4, 1, 4, 16, 64, 256, 1024),
+    (5, 1, 5, 25, 125, 625, 3125),
+    (6, 1, 6, 36, 216, 1296, 7776),
+    (7, 1, 7, 49, 343, 2401, 16807),
+    (8, 1, 8, 64, 512, 4096, 32768),
+    (9, 1, 9, 81, 729, 6561, 59049),
+    (10, 1, 10, 100, 1000, 10000, 100000)]
+"""
+print(
+    "\n-- # 3 Crea la siguiente lista de tuplas usando una comprensión de listas: --\n"
+)
+
+numList = [
+    (0, 1, 0, 0, 0, 0, 0),
+    (1, 1, 1, 1, 1, 1, 1),
+    (2, 1, 2, 4, 8, 16, 32),
+    (3, 1, 3, 9, 27, 81, 243),
+    (4, 1, 4, 16, 64, 256, 1024),
+    (5, 1, 5, 25, 125, 625, 3125),
+    (6, 1, 6, 36, 216, 1296, 7776),
+    (7, 1, 7, 49, 343, 2401, 16807),
+    (8, 1, 8, 64, 512, 4096, 32768),
+    (9, 1, 9, 81, 729, 6561, 59049),
+    (10, 1, 10, 100, 1000, 10000, 100000),
+]
+
+num_compressed = [(i, 1, i, i**2, i**3, i**4, i**5) for i in range(11)]
+print(f"Lista de tuplas con compresion de filas:\n {num_compressed}")
+
+num_tuplas = [tuple(j**i for i in range(7)) for j in range(11)]
+print(f"Lista de tuplas con compresion mas comprimidade filas:\n {num_compressed}")
+
+numTest = []
+for i in range(0, 11):
+    nuevaTupla = ()
+    nuevaTupla = (i, 1, i, i**2, i**3, i**4, i**5)
+    numTest.append(nuevaTupla)
+print(f"Lista de tuplas con bucle:\n {numTest}")

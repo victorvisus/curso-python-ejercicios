@@ -15,6 +15,8 @@ Declara una variable is_light_on y asígnale un valor
 Declara múltiples variables en una sola línea
 """
 
+print("\n-- # 1 Declaración de variables: --\n")
+
 first_name = "Brenda"
 lasta_name = "García"
 full_name = first_name + " " + lasta_name
@@ -25,9 +27,27 @@ year = 2021
 is_married = False
 is_true = True
 is_light_on = True
+print(
+    "Variables definidas: {}, {}, {}, {}, {}, {}, {}, {}, {}, {}".format(
+        first_name,
+        lasta_name,
+        full_name,
+        country,
+        city,
+        age,
+        year,
+        is_married,
+        is_true,
+        is_light_on,
+    )
+)
 """
 Ejercicio: Nivel 2
 """
+print(
+    "\n-- # 1 función integrada type() para comprobar el tipo de las variables declaradas: --\n"
+)
+
 # 1 Usa la función integrada type() para comprobar el tipo de las variables que declaraste
 print(type(first_name))
 print(type(lasta_name))
@@ -39,10 +59,16 @@ print(type(year))
 print(type(is_married))
 print(type(is_true))
 print(type(is_light_on))
+
+print(
+    "\n-- # 2 función len() para calcular la longitud de la variable first_name: --\n"
+)
 # 2 Usa la función len() para calcular la longitud de la variable first_name
 print(len(first_name))
 
+print("\n-- # 3 Compara la longitud de las variables first_name y last_name: --\n")
 # 3 Compara la longitud de las variables first_name y last_name
+print(len(first_name) > len(lasta_name))
 
 """
 4 Declara las variables num_one = 5 y num_two = 4
@@ -53,6 +79,13 @@ print(len(first_name))
 ---- Usa la operación módulo para obtener el resto de num_two dividido por num_one y asígnalo a remainder
 ---- Calcula num_one elevado a num_two y asigna el valor a exp
 ---- Calcula la división entera de num_one entre num_two (operación de floor division) y asigna el resultado a floor_division
+"""
+print("\n-- # 4 Declara las variables num_one = 5 y num_two = 4: --\n")
+a = 5
+b = 4
+print("---- Suma num_one y num_two y asigna el resultado a la variable total")
+total = a + b
+"""
 5 El círculo tiene un radio de 30 metros.
 ---- Calcula el área del círculo y asígnala a la variable _area_of_circle_
 ---- Calcula la circunferencia del círculo y asígnala a la variable _circum_of_circle_

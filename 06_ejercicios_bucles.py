@@ -98,30 +98,30 @@ for key in person:
 """
 
 # 1 Implementa iteraciones de 0 a 10 usando while y for.
-print("-- # 1 Implementa iteraciones de 0 a 10 usando while y for. --")
+print("\n-- # 1 Implementa iteraciones de 0 a 10 usando while y for. --\n")
 contador = 0
 while contador <= 10:
     print(contador)
     contador += 1
 
 # 2 Implementa iteraciones de 10 a 0 usando while y for.
-print("-- # 2 Implementa iteraciones de 10 a 0 usando while y for. --")
+print("\n-- # 2 Implementa iteraciones de 10 a 0 usando while y for. --\n")
 for i in range(10, 0, -1):
     print(i)
 
 # 3 Escribe un bucle que llame a print() 7 veces para producir este triángulo:
 print(
-    "-- # 3 Escribe un bucle que llame a print() 7 veces para producir este triángulo: --"
+    "\n-- # 3 Escribe un bucle que llame a print() 7 veces para producir este triángulo: --\n"
 )
 for i in range(1, 8):
     print("# " * i)
 
 # 4 Usa bucles anidados para producir la siguiente salida:
-print("-- # 4 Usa bucles anidados para producir la siguiente salida: --")
+print("\n-- # 4 Usa bucles anidados para producir la siguiente salida: --\n")
 
 
 # 5 Usando un bucle, produce la siguiente salida:
-print("-- # 5 Usando un bucle, produce la tabla de cuadrados: --")
+print("\n-- # 5 Usando un bucle, produce la tabla de cuadrados: --\n")
 for i in range(0, 11):
     print(f"{i} x {i} = {i * i}")
 
@@ -129,7 +129,7 @@ for i in range(0, 11):
 Ejercicios: Nivel 2
 """
 # 1 Usa un for para sumar los números de 0 a 100.
-print("-- # 1 Usa un for para sumar los números de 0 a 100. --")
+print("\n-- # 1 Usa un for para sumar los números de 0 a 100. --\n")
 suma = 0
 for i in range(101):
     suma += i
