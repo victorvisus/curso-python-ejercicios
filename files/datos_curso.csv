@@ -1,0 +1,7 @@
+id,modulo,ejercicio,duracion_min,completado
+1,MF0491_3,Sumar horas,15,true
+2,MF0491_3,Variables complejas,10,true
+4,MF0491_3,Area triangulo,20,false
+5,MF0491_3,Perimetro triangulo,12,true
+8,MF0491_3,Pendiente y rectas,45,false
+12,MF0491_3,Comparacion ficticia,5,true

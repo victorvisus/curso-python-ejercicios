@@ -1,0 +1,10 @@
+{
+    "nombre": "Juan",
+    "apellido": "Pérez Nuñio",
+    "edad": 25,
+    "hobbies": [
+        "futbol",
+        "leer",
+        "programar"
+    ]
+}

@@ -40,7 +40,7 @@ print("Imprimo el diccionario: ", person_dct)
 print("Imprimo una clave del diccionario: ", person_dct["name"])
 
 
-# TAREA: llevar el contenido de person_json a un fichero y desde ahi leerlo.
+# TAREA: llevar el contenido de person_json a un fichero y desde ahi leerlo. ##########
 try:
     with open("./ficheros/person_json.json", "rt", encoding="utf-8") as f:
         f_content = f.read()
@@ -56,3 +56,39 @@ except json.JSONDecodeError:
     print("El archivo no es un JSON válido. Verifica su contenido.")
 except Exception as e:
     print(f"Ha ocurrido un error: {e}")
+
+
+# Convertir diccionario a JSON
+# Para convertir un diccionario a JSON usamos dumps.
+
+coche = {
+    "marca": "Audi",
+    "modelo": "A3",
+    "color": "Negro",
+    "motor": "1.4 TDI",
+}
+
+coche_json = json.dumps(coche, indent=4)  # dumps (con s) devuelve un string
+print(type(coche_json))
+print(coche_json)
+
+# opcion con write, y se guarda en un archivo
+with open("./ficheros/coche_json.json", "w", encoding="utf-8") as f:
+    f.write(coche_json)
+
+# opcion directa con dump()
+mi_diccionario = {
+    "nombre": "Juan",
+    "apellido": "Pérez Nuñio",
+    "edad": 25,
+    "hobbies": ["futbol", "leer", "programar"],
+}
+with open("./ficheros/mi_diccionario.json", "w", encoding="utf-8") as f:
+    json.dump(
+        mi_diccionario, f, ensure_ascii=False, indent=4
+    )  # dump() (sin s) no devuelve un string, escribe datos serializados en un archivo
+
+# cargamos el archivo json creado en la linea anterior
+with open("./ficheros/mi_diccionario.json", "r", encoding="utf-8") as f:
+    persona = json.load(f)
+    print(persona)
