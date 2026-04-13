@@ -18,3 +18,27 @@ for url in url_lists:
 # Mostrar información del paquete: pip show packagename
 # Actualizar paquetes: pip install --upgrade packagename
 # PIP Freeze, Genera una lista de paquetes instalados y sus versiones (útil para requirements.txt): pip freeze
+"""
+Desinstalar paquetes
+Para eliminar un paquete instalado:
+
+pip uninstall packagename
+"""
+"""
+Lista de paquetes
+Para listar los paquetes instalados en tu entorno:
+
+pip list
+"""
+"""
+Mostrar información del paquete
+Para ver información de un paquete:
+
+pip show nombre_de_paquete
+"""
+"""
+PIP Freeze
+Genera una lista de paquetes instalados y sus versiones (útil para requirements.txt):
+
+pip freeze
+"""
