@@ -1,0 +1,47 @@
+[
+    {
+        "_id": {
+            "$oid": "69df70e4d92353a3ebc19034"
+        },
+        "name": "David",
+        "country": "UK",
+        "city": "London",
+        "age": 34
+    },
+    {
+        "_id": {
+            "$oid": "69df70e4d92353a3ebc19035"
+        },
+        "name": "John",
+        "country": "Sweden",
+        "city": "Stockholm",
+        "age": 28
+    },
+    {
+        "_id": {
+            "$oid": "69df70e4d92353a3ebc19036"
+        },
+        "name": "Sami",
+        "country": "Finland",
+        "city": "Helsinki",
+        "age": 25
+    },
+    {
+        "_id": {
+            "$oid": "69df70e5d92353a3ebc19037"
+        },
+        "name": "Eva",
+        "country": "Spain",
+        "city": "Barcelona",
+        "age": 32
+    },
+    {
+        "_id": {
+            "$oid": "69df70e5d92353a3ebc19038"
+        },
+        "name": "Lukas",
+        "country": "Lithuania",
+        "city": "Vilnius",
+        "age": 29
+    }
+]

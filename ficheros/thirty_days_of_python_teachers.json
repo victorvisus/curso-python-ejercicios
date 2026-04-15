@@ -1,0 +1,47 @@
+[
+    {
+        "_id": {
+            "$oid": "69df44f7f36ebe8aceb8b72a"
+        },
+        "name": "Mr. Johnson",
+        "country": "USA",
+        "city": "New York",
+        "age": 45
+    },
+    {
+        "_id": {
+            "$oid": "69df44f7f36ebe8aceb8b72b"
+        },
+        "name": "Ms. Rodriguez",
+        "country": "Mexico",
+        "city": "Mexico City",
+        "age": 38
+    },
+    {
+        "_id": {
+            "$oid": "69df44f7f36ebe8aceb8b72c"
+        },
+        "name": "Mr. Lee",
+        "country": "South Korea",
+        "city": "Seoul",
+        "age": 42
+    },
+    {
+        "_id": {
+            "$oid": "69df44f7f36ebe8aceb8b72d"
+        },
+        "name": "Ms. Brown",
+        "country": "UK",
+        "city": "London",
+        "age": 40
+    },
+    {
+        "_id": {
+            "$oid": "69df44f7f36ebe8aceb8b72e"
+        },
+        "name": "Mr. Patel",
+        "country": "India",
+        "city": "Mumbai",
+        "age": 35
+    }
+]

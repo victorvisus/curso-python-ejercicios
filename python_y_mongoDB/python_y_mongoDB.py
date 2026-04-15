@@ -21,10 +21,14 @@ NoSQL
 ngvdKu8AKbtMDuUA
 victorvxg_db_user
 
+mongodb+srv://victorvxg_db_user:ngvdKu8AKbtMDuUA@vichox.svkibw2.mongodb.net/
 
 infinityfree: 6HORxnlqKM55CV
+
+https://www.mongodb.com/cloud
 """
 
+from bson import json_util
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 
@@ -55,11 +59,12 @@ print("Despues de crear tablas: ", client.list_database_names())
     {"name": "David", "country": "UK", "city": "London", "age": 34},
     {"name": "John", "country": "Sweden", "city": "Stockholm", "age": 28},
     {"name": "Sami", "country": "Finland", "city": "Helsinki", "age": 25},
+    {"name": "Eva", "country": "Spain", "city": "Barcelona", "age": 32},
+    {"name": "Lukas", "country": "Lithuania", "city": "Vilnius", "age": 29},
 ]
 for student in students:
     db.students.insert_one(student)
  """
-
 # AÑADIR COLECCION teachers
 """
 teachers = [
@@ -104,6 +109,7 @@ db.students.update_one(
     {"name": "Asabeneh"}, {"$set": {"country": "Finland"}}
 )  # actualizar un registro, segun el FILTER/WHERE
 """
+# db.students.update_many({"city": "Stockholm"}, {"$set": {"city": "Madrid"}})
 # ELIMINAR REGISTROS
 """
 db.students.delete_one({"name": "David"})  # eliminar un registro
@@ -122,13 +128,76 @@ print(
 for student in students:
     print(student)
 """
-cadena = {"age": {"$gt": 30, "$lt": 42}}
+""" cadena = {"age": {"$gt": 30, "$lt": 42}}
 teachers = db.teachers.find(cadena, {"_id": 0, "name": 1, "country": 1, "age": 1}).sort(
     "age", -1
 )  # 0 excluir, 1 incluir, -1 descendente, 1 ascendente
 for teacher in teachers:
     print(teacher)
+
+ """
+
+
 #
 #
 #
 ##############################################################################################3
+# backup a json
+def backup_a_json(_db_name, _col_name, _client):
+    collection = _client[_db_name][_col_name]
+    data = list(collection.find())
+
+    with open(f"./ficheros/{_db_name}_{_col_name}.json", "w") as f:
+        f.write(json_util.dumps(data, indent=4))
+
+    print("✅ Archivo JSON generado.")
+
+
+# backup_a_json("thirty_days_of_python", "students", client)
+# backup_a_json("thirty_days_of_python", "teachers", client)
+
+
+# resturar un backup a partir de un json
+def restaurar_a_json(_json_file, _db_name, _col_name, _client):
+    try:
+        with open(_json_file, "rt", encoding="utf-8") as f:
+            file_data = f.read()
+            f_content = json_util.loads(file_data)
+    except FileNotFoundError:
+        print("El archivo no se ha encontrado. Asegúrate de que el path es correcto.")
+    except Exception as e:
+        print(e)
+
+    db = _client[_db_name]
+    coleccion = db[_col_name]
+
+    try:
+        for reg in f_content:
+            if "_id" in reg:
+                del reg["_id"]  # Borramos el ID conflictivo
+            coleccion.insert_one(reg)
+            print(f"Insertado: {reg}")
+    except Exception as e:
+        print(e)
+
+    """
+    # 2. Ahora f_content tiene Objetos reales, no diccionarios con "$"
+    if isinstance(f_content, list):
+        coleccion.insert_many(f_content)
+        print(f"✅ Insertados {len(f_content)} registros.")
+    else:
+        coleccion.insert_one(f_content)
+        print("✅ Insertado 1 registro.")
+    """
+
+    print("✅ Archivo JSON restaurado.")
+
+
+# db.teachers.delete_many({})
+""" restaurar_a_json(
+    "./ficheros/thirty_days_of_python_teachers.json",
+    "thirty_days_of_python",
+    "teachers",
+    client,
+)
+ """

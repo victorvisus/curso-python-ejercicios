@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MongoDB CRUD</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+      }
+      html {
+        font-size: 16px;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        margin: 2rem;
+        color: #212121;
+      }
+      header,
+      main,
+      section,
+      footer {
+        max-width: 960px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 2.5vmax;
+      }
+      h1,
+      h2,
+      h3 {
+        color: #0d47a1;
+        margin-bottom: 1.2rem;
+      }
+      p,
+      ul,
+      caption {
+        margin-bottom: 1rem;
+      }
+      li {
+        line-height: 1.7;
+      }
+      code {
+        background: #f5f5f5;
+        border-radius: 3px;
+        padding: 0.1rem 0.2rem;
+        font-weight: 800;
+        font-size: 0.9rem;
+      }
+      nav {
+        margin-top: 1rem;
+        background: #e8f0fe;
+        border: 1px solid #c6dafb;
+        border-radius: 8px;
+        padding: 1rem;
+      }
+      nav ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        justify-content: space-around;
+      }
+      nav li {
+        margin: 0;
+      }
+      nav a {
+        display: inline-block;
+        padding: 0.6rem 1rem;
+        border-radius: 999px;
+        background: #ffffff;
+        color: #0d47a1;
+        text-decoration: none;
+        border: 1px solid transparent;
+        transition:
+          background 0.2s ease,
+          border-color 0.2s ease;
+      }
+      nav a:hover,
+      nav a:focus-visible {
+        background: #dce9ff;
+        border-color: #90caf9;
+        outline: none;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-bottom: 1rem;
+      }
+      th,
+      td {
+        border: 1px solid #ccc;
+        padding: 0.5rem;
+        text-align: left;
+      }
+      th {
+        background: #e3f2fd;
+      }
+      caption {
+        caption-side: top;
+        text-align: left;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header role="banner">
+      <h1 id="main-title">MongoDB CRUD</h1>
+      <p>
+        Resumen de operaciones de creación, lectura, actualización y borrado en
+        MongoDB.
+      </p>
+      <nav role="navigation">
+        <ul>
+          <li><a href="#create-heading">1. Create (Crear)</a></li>
+          <li><a href="#read-heading">2. Read (Leer)</a></li>
+          <li><a href="#update-heading">3. Update (Actualizar)</a></li>
+          <li><a href="#delete-heading">4. Delete (Borrar)</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="maincontent" role="main">
+      <section aria-labelledby="create-heading">
+        <h2 id="create-heading">1. Create (Crear)</h2>
+        <p>
+          Para insertar documentos. MongoDB crea automáticamente el campo
+          <code>_id</code> si no se especifica.
+        </p>
+        <ul>
+          <li><code>insertOne({...})</code>: Inserta un único documento.</li>
+          <li>
+            <code>insertMany([{...}, {...}])</code>: Inserta un array de
+            documentos de forma eficiente.
+          </li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="read-heading">
+        <h2 id="read-heading">2. Read (Leer)</h2>
+        <p>Para consultar datos. El primer parámetro siempre es el filtro.</p>
+        <ul>
+          <li>
+            <code>find(filtro)</code>: Devuelve un cursor con todos los
+            documentos que coincidan.
+          </li>
+          <li>
+            <code>findOne(filtro)</code>: Devuelve solo el primer documento que
+            encuentre.
+          </li>
+        </ul>
+
+        <article aria-labelledby="comparison-heading">
+          <h3 id="comparison-heading">Filtros con Operadores de Comparación</h3>
+          <p id="comparison-desc">
+            Para consultas avanzadas, no usas solo valores exactos, sino
+            operadores.
+          </p>
+          <table aria-describedby="comparison-desc">
+            <caption>
+              Operadores de comparación en MongoDB
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col">Operador</th>
+                <th scope="col">Descripción</th>
+                <th scope="col">Ejemplo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>$eq</code></td>
+                <td>Igual a</td>
+                <td><code>{ precio: { $eq: 20 } }</code></td>
+              </tr>
+              <tr>
+                <td><code>$ne</code></td>
+                <td>No igual a</td>
+                <td><code>{ estado: { $ne: "cancelado" } }</code></td>
+              </tr>
+              <tr>
+                <td><code>$gt / $gte</code></td>
+                <td>Mayor que / Mayor o igual</td>
+                <td><code>{ edad: { $gt: 18 } }</code></td>
+              </tr>
+              <tr>
+                <td><code>$lt / $lte</code></td>
+                <td>Menor que / Menor o igual</td>
+                <td><code>{ stock: { $lte: 5 } }</code></td>
+              </tr>
+              <tr>
+                <td><code>$in</code></td>
+                <td>Está en el array</td>
+                <td><code>{ categoria: { $in: ["IT", "RRHH"] } }</code></td>
+              </tr>
+              <tr>
+                <td><code>$nin</code></td>
+                <td>No está en el array</td>
+                <td><code>{ tag: { $nin: ["old"] } }</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </article>
+      </section>
+
+      <section aria-labelledby="update-heading">
+        <h2 id="update-heading">3. Update (Actualizar)</h2>
+        <p>
+          Para modificar documentos existentes. Requiere un filtro y una
+          instrucción de actualización.
+        </p>
+        <ul>
+          <li>
+            <code>updateOne(filtro, update)</code>: Modifica el primer documento
+            que coincida.
+          </li>
+          <li>
+            <code>updateMany(filtro, update)</code>: Modifica todos los que
+            coincidan.
+          </li>
+        </ul>
+        <p>Operadores clave:</p>
+        <ul>
+          <li>
+            <code>$set</code>: Cambia el valor de un campo (o lo crea si no
+            existe).
+          </li>
+          <li><code>$unset</code>: Elimina un campo del documento.</li>
+          <li><code>$inc</code>: Incrementa un valor numérico.</li>
+        </ul>
+        <p>
+          <code>db.users.updateOne({ _id: 1 }, { $inc: { visitas: 1 } })</code>
+        </p>
+      </section>
+
+      <section aria-labelledby="delete-heading">
+        <h2 id="delete-heading">4. Delete (Borrar)</h2>
+        <p>
+          Para eliminar documentos. Cuidado: si pasas un filtro vacío
+          <code>{}</code>, borras todo el contenido de la colección.
+        </p>
+        <ul>
+          <li>
+            <code>deleteOne(filtro)</code>: Borra el primer documento que
+            coincida.
+          </li>
+          <li>
+            <code>deleteMany(filtro)</code>: Borra todos los documentos que
+            cumplan la condición.
+          </li>
+        </ul>
+        <p>
+          <strong>Drop (Eliminar colección)</strong>: Para eliminar una
+          colección completa, usa <code>db.collection.drop()</code>. Esta
+          operación elimina toda la colección y sus índices. Cuidado: esta
+          acción es irreversible.
+        </p>
+
+        <article aria-labelledby="logical-heading">
+          <h3 id="logical-heading">Operadores Lógicos (Combinando Filtros)</h3>
+          <p>Si necesitas filtrar por varias condiciones a la vez:</p>
+          <ul>
+            <li><code>$and</code>: Todas las condiciones deben ser ciertas.</li>
+            <li><code>$or</code>: Al menos una debe ser cierta.</li>
+            <li><code>$not</code>: Invierte el resultado del filtro.</li>
+          </ul>
+          <p>
+            Nota técnica: En MongoDB, si pones varias comas en un filtro
+            <code>{ campo1: "a", campo2: "b" }</code>, se interpreta
+            implícitamente como un <code>$and</code>. Solo usas el operador
+            explícito si necesitas repetir la misma clave o para consultas muy
+            complejas.
+          </p>
+        </article>
+      </section>
+    </main>
+
+    <footer role="contentinfo">
+      <p>
+        Documento accesible con estructura semántica y etiquetas ARIA para mejor
+        lectura en navegadores y lectores de pantalla.
+      </p>
+    </footer>
+  </body>
+</html>
