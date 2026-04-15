@@ -1,4 +1,25 @@
+# --- Sistema Operativo ---
+Thumbs.db
+desktop.ini
+.DS_Store
+*.zip
+
+# --- Editores de Código ---
 .vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# --- Extensiones y Configuración de VS Code ---
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
