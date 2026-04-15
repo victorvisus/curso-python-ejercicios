@@ -20,6 +20,9 @@ NoSQL
 
 ngvdKu8AKbtMDuUA
 victorvxg_db_user
+
+
+infinityfree: 6HORxnlqKM55CV
 """
 
 from pymongo.mongo_client import MongoClient

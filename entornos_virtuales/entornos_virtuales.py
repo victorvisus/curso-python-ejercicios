@@ -12,7 +12,7 @@ Dentro de la carpeta 30DaysOfPython crea un directorio llamado flask_project.
 Una vez instalado virtualenv, entra en la carpeta del proyecto y crea el entorno virtual:
 """
 # Para Windows:
-# python -m venv venv
+# python -m venv .venv
 
 """
 A mí me gusta nombrar el entorno como venv, pero puedes elegir otro nombre. Usa ls (o dir en Windows) para comprobar que venv se creó:
