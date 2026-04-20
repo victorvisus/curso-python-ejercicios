@@ -4,6 +4,7 @@ Un módulo es un archivo que contiene un conjunto de código o funciones que se 
 
 Crear módulos
 Para crear un módulo, escribimos código en un script de Python y lo guardamos con extensión .py. En la carpeta del proyecto crea un archivo llamado mymodule.py. Escribamos algo de código en ese archivo.
+En la carpeta del modulo poner un archivo __init__.py
 
 Importar módulos
 Para importar archivos usamos la palabra clave import y el nombre del archivo.
