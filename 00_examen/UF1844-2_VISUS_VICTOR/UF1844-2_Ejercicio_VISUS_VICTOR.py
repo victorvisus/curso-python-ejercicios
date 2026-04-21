@@ -4,6 +4,8 @@
 
 import datetime
 import json
+import os
+import subprocess
 
 import requests
 from bs4 import BeautifulSoup
@@ -25,15 +27,15 @@ class Sismo:
         return f"A las {self.hora} del {self.fecha} hubo un seismo de magnitud {self.magnitud} en {self.localizacion}"
 
 
-sismo = Sismo(datetime.datetime(2026, 4, 18, 1, 15, 25), "TORREVIEJA", 1.7)
-print("-- Ejercicio 1 -----------------------------------------------------\n")
-print(sismo.info())
+def crear_sismo():
+    sismo = Sismo(datetime.datetime(2026, 4, 18, 1, 15, 25), "TORREVIEJA", 1.7)
+    print("-- Ejercicio 1 -----------------------------------------------------\n")
+    print(sismo.info())
 
 
 """
 2. Leer la página https://www.ign.es/web/ign/portal/ultimos-terremotos/-/ultimos-terremotos/get30dias y extraer como una lista de diccionarios (Python), cada uno de ellos con claves Localización (valor str), fecha y hora UTC (valor datetime), y magnitud (valor float) de todos los sismos registrados, en formato lista, con técnica de web-scraping en Python. Probar la realización de esta captación, extracción y construcción.
 """
-print("\n-- Ejercicio 2 -----------------------------------------------------\n")
 
 
 def capturar_sismos():
@@ -99,21 +101,23 @@ def capturar_sismos():
         return []
 
 
-# --- PRUEBA DE REALIZACIÓN ---
-resultado = capturar_sismos()
+def print_sismos():
+    print("\n-- Ejercicio 2 -----------------------------------------------------\n")
 
-# Imprimimo los 5 primeros
-for sismo in resultado[:5]:
-    print(sismo)
+    resultado = capturar_sismos()
+
+    # Imprimimo los 5 primeros
+    for sismo in resultado[:5]:
+        print(sismo)
 
 
 """
 3. Pasar la lista de la pregunta 2. a continuación a formato JSON
 """
-print("\n-- Ejercicio 3 -----------------------------------------------------\n")
 
 
 def convertir_a_json():
+    print("\n-- Ejercicio 3 -----------------------------------------------------\n")
     lista_sismos = capturar_sismos()
 
     # Convertimos la lista a formato JSON (string)
@@ -129,16 +133,13 @@ def convertir_a_json():
     print("Archivo JSON generado.")
 
 
-convertir_a_json()
-
-
 """
-4. Crear un objeto que contenga la información del primer diccionario de la pregunta 2 (o primera “representación” JSON –string- equivalente de la pregunta 3), según la clase Sismo de la pregunta 1.
+4. Crear un objeto que contenga la información del primer diccionario de la pregunta 2 (o primera “representación” JSON -string- equivalente de la pregunta 3), según la clase Sismo de la pregunta 1.
 """
-print("\n-- Ejercicio 4 -----------------------------------------------------\n")
 
 
 def crear_objeto_sismo():
+    print("\n-- Ejercicio 4 -----------------------------------------------------\n")
     sismo_dict = capturar_sismos()[0]
     sismo_obj = Sismo(
         sismo_dict["fecha y hora UTC"],
@@ -148,4 +149,67 @@ def crear_objeto_sismo():
     print("Objeto Creado: ", sismo_obj.info())
 
 
-crear_objeto_sismo()
+def appInit():
+    op = 99
+    while op != 0:
+        print(
+            "\n-- Ejercicios ---------------------------------------------------------\n",
+            "-- Elije una Opcion a ejecutar --\n",
+            "--  1.- Crear Clase Sismo\n",
+            "--  2.- Web-scraping Sismos\n",
+            "--  3.- Convertir a JSON\n",
+            "--  4.- Crear un objeto del primer diccionario de la pregunta 2\n",
+            "--\n",
+            "--  0.- Salir\n",
+            "-------------------------------------------------------------------------\n",
+        )
+        try:
+            op = int(input("Elije una opcion: "))
+            if op == 1:
+                limpiar_consola()
+                print("Ejecutando: Crear Sismo...")
+                crear_sismo()
+
+            elif op == 2:
+                limpiar_consola()
+                print("Ejecutando: Variables complejas...")
+                print_sismos()
+
+            elif op == 3:
+                limpiar_consola()
+                print("Ejecutando: Convertir a JSON...")
+                convertir_a_json()
+
+            elif op == 4:
+                limpiar_consola()
+                print("Ejecutando: Crear un objeto del primer diccionario...")
+                crear_objeto_sismo()
+            elif op == 0:
+                limpiar_consola()
+                print("Saliendo...")
+            else:
+                print("\n[!] Esa opción no existe en el menú.")
+
+            # 3. PAUSA CLAVE
+            # Si no es 0, esperamos a que el usuario lea el resultado
+            if op != 0:
+                input("\nPresiona ENTER para volver al menú...")
+        except ValueError as e:
+            print("Elije una opcion correcta\n", e)
+
+
+def limpiar_consola():
+    try:
+        # 'nt' es el nombre interno de Windows en Python
+        if os.name == "nt":
+            # Ejecuta 'cls' de forma segura
+            subprocess.run("cls", shell=True)
+        else:
+            # Ejecuta 'clear' para Linux/Mac
+            subprocess.run("clear", shell=True)
+    except Exception:
+        # Si por algo falla, imprimimos saltos de línea para "limpiar" visualmente
+        print("\n" * 50)
+
+
+appInit()
