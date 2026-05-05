@@ -4,15 +4,18 @@ Ejercicios: Nivel 1
 2 Declara una lista con más de 5 elementos
 3 Encuentra la longitud de la lista
 4 Obtén el primer, medio y último elemento de la lista
+
 5 Declara una lista llamada mixed_data_types que contenga tu nombre, edad, altura, estado civil y dirección
 6 Declara una lista it_companies e inicialízala con: Facebook, Google, Microsoft, Apple, IBM, Oracle y Amazon
 7 Imprime la lista usando print()
 8 Imprime el número de empresas en la lista
 9 Imprime la primera, la del medio y la última empresa
+
 10 Cambia el nombre de una de las empresas y vuelve a imprimir la lista
 11 Agrega una empresa IT a it_companies
 12 Inserta una empresa IT en la mitad de la lista
 13 Cambia el nombre de una empresa en it_companies a mayúsculas (¡excepto IBM!)
+
 14 Une it_companies en una cadena usando la cadena '#;  '
 15 Verifica si una empresa existe en it_companies
 16 Ordena la lista usando el método sort()
@@ -45,24 +48,156 @@ Ejercicios: Nivel 2
 3 Divide la lista de países en dos listas iguales (si es par; si no, la primera lista tendrá un país más)
 4 Para la lista ['China', 'Russia', 'USA', 'Finland', 'Sweden', 'Norway', 'Denmark'], separa los tres primeros países de los países nórdicos restantes.
 """
+
+import os
+import subprocess
+
 # 3 Encuentra la mediana de las edades (un elemento medio o el promedio de dos elementos medios)
 # 1.- Ordenar la lista
 # 2.- Contar el numero de elementos
 # 2.1.- Si es impar: sacar el del medio
 
 
-ages = [19, 22, 19, 24, 20, 25, 26, 24, 25, 24, 15, 19, 14, 33, 22, 16]
-edades = sorted(ages)
-numElementos = len(edades)
-print("Edades ordenadas: ", edades, "\ntiene ", numElementos, " elementos")
+def calculaMediana():
+    ages = [19, 22, 19, 24, 20, 25, 26, 24, 25, 24, 15, 19, 14, 33, 22, 16]
+    edades = sorted(ages)
+    numElementos = len(edades)
+    print("Edades ordenadas: ", edades, "\ntiene ", numElementos, " elementos")
 
-if numElementos % 2 != 0:
-    print("la lista es impar")
-    mediana = int(numElementos / 2)
-    print("La mediana es: ", edades[mediana])
-else:
-    print("la lista es par")
-    pos1 = int(numElementos / 2) - 1
-    pos2 = int(numElementos / 2)
-    mediana = (edades[pos1] + edades[pos2]) / 2
-    print("La mediana es:  {mediana:.3f}".format(mediana=mediana))
+    if numElementos % 2 != 0:
+        print("la lista es impar")
+        mediana = int(numElementos / 2)
+        print("La mediana es: ", edades[mediana])
+    else:
+        print("la lista es par")
+        pos1 = int(numElementos / 2) - 1
+        pos2 = int(numElementos / 2)
+        mediana = (edades[pos1] + edades[pos2]) / 2
+        print("La mediana es:  {mediana:.3f}".format(mediana=mediana))
+
+
+# 1 Declara una lista vacía
+# 2 Declara una lista con más de 5 elementos
+# 3 Encuentra la longitud de la lista
+# 4 Obtén el primer, medio y último elemento de la lista
+
+
+def listaEjemplo():
+    ejLista = []
+    print("Lista vacía: ", type(ejLista), ejLista)
+
+    listaCino = [1, 2, 3, 4, 5]
+    print("Lista con 5 elementos: ", listaCino)
+
+    print("Longitud de la lista: ", len(listaCino))
+
+    for i in range(len(listaCino)):
+        if i == 0:
+            posIni = listaCino[i]
+        elif i == len(listaCino) - 1:
+            posFin = listaCino[i]
+        elif i == int(len(listaCino) / 2):
+            posMed = listaCino[i]
+    print("Elementos: ", posIni, posMed, posFin)  # Imprime los elementos de la lista
+
+
+def appInit():
+    op = 99
+
+    while op != 0:
+        print(
+            "\n-- Ejercicios ---------------------------------------------------------\n",
+            "-- Elije una Opcion a ejecutar --\n",
+            "-- 1.- Ejercicio 1,2,3,4\n",
+            "-- \t1 Declara una lista vacía, 2 Declara una lista con más de 5 elementos\n",
+            "-- \t3 Encuentra la longitud de la lista, 4 Obtén el primer, medio\n",
+            "-- \t y último elemento de la lista\n",
+            "--\n",
+            "-- 5.- Declara una lista llamada mixed_data_types que contenga tu\n",
+            "-- \tnombre, edad, altura, estado civil y dirección\n",
+            "--\n",
+            "-- 6.- Declara una lista it_companies e inicialízala con: Facebook,\n",
+            "-- \tGoogle, Microsoft, Apple, IBM, Oracle y Amazon\n",
+            "--\n",
+            "-- 7.- Imprime la lista usando print()\n",
+            "--\n",
+            "-- 8.- Imprime el número de empresas en la lista\n",
+            "--\n",
+            "-- 9.- Imprime la primera, la del medio y la última empresa\n",
+            "--\n",
+            "--  0.- Salir\n",
+            "-------------------------------------------------------------------------\n",
+        )
+        try:
+            op = int(input("Elije una opcion: "))
+            if op == 1:
+                limpiar_consola()
+                listaEjemplo()
+
+            elif op == 5:
+                limpiar_consola()
+                # 5 Declara una lista llamada mixed_data_types que contenga tu nombre, edad, altura, estado civil y dirección
+                mixed_data_types = ["Sergio", 38, 1.75, "Soltero", "Calle Falsa 123"]
+                print("Lista con datos mixtos: ", mixed_data_types)
+
+            elif op == 6:
+                limpiar_consola()
+                # 6 Declara una lista it_companies e inicialízala con: Facebook, Google, Microsoft, Apple, IBM, Oracle y Amazon
+                it_companies = [
+                    "Facebook",
+                    "Google",
+                    "Microsoft",
+                    "Apple",
+                    "IBM",
+                    "Oracle",
+                    "Amazon",
+                ]
+
+            elif op == 7:
+                limpiar_consola()
+                # 7 Imprime la lista usando print()
+                print("Lista de empresas IT: ", it_companies)
+
+            elif op == 8:
+                limpiar_consola()
+                # 8 Imprime el número de empresas en la lista
+                print("Número de empresas IT: ", len(it_companies))
+
+            elif op == 9:
+                limpiar_consola()
+                # 9 Imprime la primera, la del medio y la última empresa
+                print("Primera empresa: ", it_companies[0])
+                print("Empresa del medio: ", it_companies[int(len(it_companies) / 2)])
+                print("Última empresa: ", it_companies[len(it_companies) - 1])
+            elif op == 36:
+                limpiar_consola()
+
+            elif op == 0:
+                limpiar_consola()
+                print("Saliendo...")
+            else:
+                print("\n[!] Esa opción no existe en el menú.")
+
+            # 3. PAUSA CLAVE
+            # Si no es 0, esperamos a que el usuario lea el resultado
+            if op != 0:
+                input("\nPresiona ENTER para volver al menú...")
+        except ValueError as e:
+            print("Elije una opcion correcta\n", e)
+
+
+def limpiar_consola():
+    try:
+        # 'nt' es el nombre interno de Windows en Python
+        if os.name == "nt":
+            # Ejecuta 'cls' de forma segura
+            subprocess.run("cls", shell=True)
+        else:
+            # Ejecuta 'clear' para Linux/Mac
+            subprocess.run("clear", shell=True)
+    except Exception:
+        # Si por algo falla, imprimimos saltos de línea para "limpiar" visualmente
+        print("\n" * 50)
+
+
+appInit()

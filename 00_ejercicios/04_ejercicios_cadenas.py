@@ -57,8 +57,6 @@ hecho - 32 Dada la lista ['Django', 'Flask', 'Bottle', 'Pyramid', 'Falcon'], ún
 import os
 import subprocess
 
-challenge = "Coding For All"
-
 
 # 1 Une las cadenas 'Thirty', 'Days', 'Of', 'Python' en 'Thirty Days Of Python'.
 def unirCadenas():
@@ -76,37 +74,64 @@ def medirCadena():
 
 # 19 Crea una sigla a partir de 'Coding For All'.
 # cortar en " " y añadir cada elemento a un array, despues extraer el primer indice de cada elemento str del array
-def crearSiglas():
+def crearSiglas(_cadena: str):
     # print("\n-- 19 Crea una sigla a partir de 'Coding For All'. ----")
 
-    siglaArray = challenge.split(" ")
+    siglaArray = _cadena.split(" ")
     siglas = siglaArray[0][0] + siglaArray[1][0] + siglaArray[2][0]
     return siglas
 
 
 # 28 ¿La cadena 'Coding For All' empieza con la subcadena 'Coding'?
-def comprobarInicioCadena():
-    if challenge.startswith("Coding"):
+def comprobarInicioCadena(_cadena: str):
+    if _cadena.startswith("Coding"):
         print("Si")
     else:
         print("No")
 
 
 # 29 ¿La cadena 'Coding For All' termina con la subcadena 'coding'?
-print(
-    "\n¿La cadena 'Coding For All' termina con la subcadena 'coding'?",
-    challenge.endswith("Coding"),
-)
+def comprobarFinalCadena(_cadena: str):
+    if _cadena.endswith("coding"):
+        print("Si")
+    else:
+        print("No")
 
 
 # 32 Dada la lista ['Django', 'Flask', 'Bottle', 'Pyramid', 'Falcon'], únela en una cadena separada por espacios.
-print("\n-- 32 Separa la cadena. ----")
-palabras = ["Django", "Flask", "Bottle", "Pyramid", "Falcon"]
-print(f"Cadena: {' '.join(palabras)}")
+def unirListaEnCadena(_lista: list):
+    print(f"Cadena: {' '.join(_lista)}")
+
+
+"""
+36 Usa un método de formateo de cadenas para imprimir:
+    8 + 6 = 14
+    8 - 6 = 2
+    8 * 6 = 48
+    8 / 6 = 1.33
+    8 % 6 = 2
+    8 // 6 = 1
+    8 ** 6 = 262144
+"""
+
+
+def imprimirOperaciones():
+    print(
+        f"8 + 6 = {8 + 6}\n",
+        f"8 - 6 = {8 - 6}\n",
+        f"8 * 6 = {8 * 6}\n",
+        f"8 / 6 = {8 / 6}\n",
+        f"8 % 6 = {8 % 6}\n",
+        f"8 // 6 = {8 // 6}\n",
+        f"8 ** 6 = {8**6}",
+    )
 
 
 def appInit():
     op = 99
+    cadena: str = "Coding For All"
+    palabras = ["Django", "Flask", "Bottle", "Pyramid", "Falcon"]
+
     while op != 0:
         print(
             "\n-- Ejercicios ---------------------------------------------------------\n",
@@ -115,6 +140,9 @@ def appInit():
             "-- 5.- Usa len() para mostrar la longitud de la cadena company.\n",
             "-- 19.- Crea una sigla a partir de 'Coding For All'.\n",
             "-- 28.- ¿La cadena 'Coding For All' empieza con la subcadena 'Coding'?.\n",
+            "-- 29.- ¿La cadena 'Coding For All' termina con la subcadena 'Coding'?.\n",
+            "-- 32.- Unir una lista en un string.\n",
+            "-- 36.- Imprimir operaciones.\n",
             "--\n",
             "--  0.- Salir\n",
             "-------------------------------------------------------------------------\n",
@@ -139,15 +167,33 @@ def appInit():
             elif op == 19:
                 limpiar_consola()
                 print("Creando siglas de 'Coding For All'...")
-                print("las Siglas son:", crearSiglas())
+                print("las Siglas son:", crearSiglas(cadena))
 
             elif op == 28:
                 limpiar_consola()
                 print("Comprobando si 'Coding For All' empieza con 'Coding'...")
                 print(
                     "¿La cadena 'Coding For All' empieza con la subcadena 'Coding'?\n",
-                    comprobarInicioCadena(),
+                    comprobarInicioCadena(cadena),
                 )
+
+            elif op == 29:
+                limpiar_consola()
+                print("Comprobando si 'Coding For All' termina con 'Coding'...")
+                print(
+                    "¿La cadena 'Coding For All' Termina con la subcadena 'Coding'?\n",
+                    comprobarFinalCadena(cadena),
+                )
+
+            elif op == 32:
+                limpiar_consola()
+                print("Uniendo una lista en un string...")
+                unirListaEnCadena(palabras)
+
+            elif op == 36:
+                limpiar_consola()
+                print("Imprimiendo operaciones...")
+                imprimirOperaciones()
 
             elif op == 0:
                 limpiar_consola()

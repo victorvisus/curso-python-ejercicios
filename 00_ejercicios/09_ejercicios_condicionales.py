@@ -7,12 +7,42 @@ Ejercicios: Nivel 1
     Salida:
     Introduce tu edad: 15
     Aún necesitas esperar 3 años para aprender a conducir.
+"""
 
+print("\n-- # 1 Edad para conducir. --\n")
+edad = int(input("Introduce tu edad: "))
+
+if edad >= 18:
+    print("Ya tienes la edad suficiente para aprender a conducir.")
+else:
+    faltan = 18 - edad
+    print(f"Aún necesitas esperar {faltan} años para aprender a conducir.")
+
+
+"""
 2 Usa if…else para comparar my_age y your_age. ¿Quién es mayor (yo o tú)? Usa input("Introduce tu edad:") para obtener la edad. Puedes usar condicionales anidados para imprimir 'año' cuando la diferencia sea 1, 'años' para diferencias mayores, y un mensaje personalizado si my_age = your_age. Salida de ejemplo:
 
     Introduce tu edad: 30
     Tienes 5 años más que yo.
+"""
+print("\n-- # 2 Usa if…else para comparar my_age y your_age. --\n")
+my_age = int(input("Introduce tu edad: "))
+your_age = int(input("Introduce la edad de tu amigo: "))
 
+if my_age > your_age:
+    if my_age - your_age == 1:
+        print(f"Tienes {my_age - your_age} año más que tu amigo.")
+    else:
+        print(f"Tienes {my_age - your_age} años más que tu amigo.")
+elif my_age < your_age:
+    if your_age - my_age == 1:
+        print(f"Tienes {your_age - my_age} año menos que tu amigo.")
+    else:
+        print(f"Tienes {your_age - my_age} años menos que tu amigo.")
+else:
+    print("Tienes la misma edad que tu amigo.")
+
+"""
 3 Pide al usuario dos números con input. Si a > b, imprime 'a es mayor que b'; si a < b, imprime 'a es menor que b'; si son iguales, imprime 'a es igual a b'.
 
     Introduce el primer número: 4
