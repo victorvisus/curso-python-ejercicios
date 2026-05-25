@@ -1,0 +1,143 @@
+Sesión 22 de mayo
+
+Se procede a la inserción de registros en el modelo:
+
+from datetime import date
+import sqlmodel
+
+class Alumno(sqlmodel.SQLModel, table=True):
+id: int
+nombre: str
+fechaNacimiento: date
+NIF: str
+apellido1: str
+apellido2: str
+email: str
+direccion: str
+codigoPostal: str
+municipio: str
+provincia: str
+beca: bool
+def str(self):
+return f"Alumno(id={self.id}, nombre=‘{self.nombre}’, fechaNacimiento={self.fechaNacimiento}, NIF=‘{self.NIF}’, apellido1=‘{self.apellido1}’, apellido2=‘{self.apellido2}’, email=‘{self.email}’, direccion=‘{self.direccion}’, codigoPostal=‘{self.codigoPostal}’, municipio=‘{self.municipio}’, provincia=‘{self.provincia}’, beca={self.beca})"
+def repr(self):
+return self.str()
+def validar_NIF(self):
+# Secuencia oficial de letras (índices del 0 al 22)
+letras = “TRWAGMYFPDXBNJZSQVHLCKE”
+# Asegurarse de que el número es entero y calcular el resto
+resto = int(self.NIF[:-1]) % 23
+# Retornar la letra correspondiente
+if letras[resto]!=self.NIF[-1].upper():
+raise ValueError(f"NIF inválido: la letra no coincide con el número. Se esperaba ‘{letras[resto]}’, pero se recibió ‘{self.NIF[-1]}’“)
+else:
+print(f"NIF válido: {self.NIF} coincide con la letra ‘{letras[resto]}’”)
+return True
+
+#########################
+from datetime import date
+from sqlmodel import SQLModel, Field
+from pydantic import field_validator
+
+class Alumno(SQLModel, table=True):
+id: int = Field(default=None, primary_key=True)
+nombre: str = Field(max_length=255)
+fechaNacimiento: date = Field(nullable=False,index=True)
+NIF: str = Field(max_length=9, unique=True, nullable=False) # 8 dígitos + letra, único y no nulo
+apellido1: str = Field(max_length=255, nullable=False)
+apellido2: str = Field(max_length=255, nullable=True) # Puede ser nulo si el alumno no tiene segundo apellido
+email: str = Field(max_length=255, nullable=False, unique=True) # Correo electrónico único y no nulo
+direccion: str = Field(max_length=255)
+codigoPostal: str = Field(max_length=10)
+municipio: str = Field(max_length=255)
+provincia: str = Field(max_length=255)
+beca: bool = Field(default=False) # Indica si el alumno tiene beca, por defecto es False
+
+def __str__(self):
+    return f"Alumno(id={self.id}, nombre='{self.nombre}', fechaNacimiento={self.fechaNacimiento}, NIF='{self.NIF}', apellido1='{self.apellido1}', apellido2='{self.apellido2}', email='{self.email}', direccion='{self.direccion}', codigoPostal='{self.codigoPostal}', municipio='{self.municipio}', provincia='{self.provincia}', beca={self.beca})"
+def __repr__(self):
+    return self.__str__()
+
+
+@field_validator("NIF") # Valida el campo NIF cada vez que se asigna un valor, se invoca automáticamente al crear o modificar el campo NIF del modelo Alumno    
+@classmethod
+def validar_NIF(clase, valor: str) -> bool:
+# Secuencia oficial de letras (índices del 0 al 22)
+    letras = "TRWAGMYFPDXBNJZSQVHLCKE"
+# Asegurarse de que el número es entero y calcular el resto
+    resto = int(valor[:-1]) % 23
+# Retornar la letra correspondiente
+    if letras[resto]!=valor[-1].upper():
+        raise ValueError(f"NIF inválido: la letra no coincide con el número. Se esperaba '{letras[resto]}', pero se recibió '{valor[-1]}'")
+    else:
+        print(f"NIF válido: {valor[-1]} coincide con la letra '{letras[resto]}'")
+        return True
+# valorar incluir validaciones para cada campo, como por ejemplo:
+# def __init__(self, id: int, nombre: str, fechaNacimiento: date, NIF: str, apellido1: str, apellido2: str, email: str, direccion: str, codigoPostal: str, municipio: str, provincia: str, beca: bool):
+database_facultad.py
+“”“Código de inicialización (database.py)Primero,
+asegúrate de tener instalado el driver de MySQL
+(por ejemplo: pip install pymysql).
+este .py debería residir en el mismo directorio que tu
+main.py o en un subdirectorio accesible.
+MiAplicacion|
+|-BBDD|
+| |-Conexion-|_
+| | database_facultad.py
+“””
+import pymysql
+import os
+from sqlmodel import SQLModel, Session, create_engine
+from dotenv import load_dotenv
+from typing import Annotated
+
+Cargar variables de entorno
+load_dotenv()
+
+Configuración de la conexión (Asegúrate de cambiar tus credenciales)
+USER = os.getenv(‘USER_DB’)
+PASSWORD = os.getenv(‘PASSWORD_DB’)
+HOST = os.getenv(‘HOST_DB’)
+PORT = os.getenv(‘PORT_DB’)
+DB_NAME = os.getenv(‘NAME_DB’)
+
+URL de conexión para SQLModel
+DATABASE_URL = f"mysql+pymysql://{USER}:{PASSWORD}@{HOST}:{PORT}/{DB_NAME}"
+engine = create_engine(DATABASE_URL)
+
+Esta función obtiene la sesión de la base de datos para usarla en los endpoints de FastAPI
+def get_session():
+with Session(engine) as session:
+yield session # Entrega la sesión al endpoint y la cierra al terminar
+
+esta variable session_dep “empaqueta” la sesión con los datos de la BD
+necesarios en cada ocasión de invocación. Evita tener que hacer conexiones nuevas con la BD.
+session_dep = Annotated[Session, Depends(get_session)]
+
+Función para inicializar la base de datos y crear tablas
+def inicializar_base_de_datos():
+
+PASO 1: Conectarse al servidor de MySQL sin especificar base de datos para crearla si no existe
+conexion_servidor = pymysql.connect(
+    host=HOST,
+    user=USER,
+    password=PASSWORD,
+    port=int(PORT)
+)
+try:
+    with conexion_servidor.cursor() as cursor:
+        # Crea la base de datos solo si no existe en el servidor
+        cursor.execute(f"CREATE DATABASE IF NOT EXISTS {DB_NAME} CHARACTER SET utf8mb4;")
+finally:
+    conexion_servidor.close()
+PASO 2: Ahora que la base de datos existe,
+SQLModel crea todas las tablas
+basándose en los modelos que hayas importado.
+SQLModel.metadata.create_all(engine)
+#Esta función se puede llamar al iniciar el servidor FastAPI para asegurarse
+
+de que la base de datos y las tablas estén listas antes de manejar cualquier solicitud.
+def create_db_and_tables():
+SQLModel.metadata.create_all(engine)
+
+EXTENDER EL TRATAMIENTO DE ALUMNO AL RESTO DE TALBAS: INTERESA MATRICULA, ASINGATURA. TENER EN CUENTA QUE HABRÁ Asignatura.py y Matricula.py, particularmente es más flexible que haya Asignatura y AsignaturaBase, pero para Matricula eso da igual.
