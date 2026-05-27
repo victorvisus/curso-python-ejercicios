@@ -49,6 +49,12 @@ else:
     Introduce el segundo número: 3
     4 es mayor que 3
 """
+print("\n-- # 3 Compara numeros --\n")
+n = int(input("Introduce el primer número: "))
+m = int(input("Introduce el siguiente número: "))
+
+
+
 
 """
 Ejercicios: Nivel 2

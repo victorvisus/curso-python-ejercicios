@@ -1,0 +1,112 @@
+Sesión 26 de mayo
+
+<!--Se propone la creación de una template para renderizar alumnos-->
+<html>
+
+<head>
+    <title>Coding with Roby</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+
+<body>
+    <p> {{name}} </p>
+    <!-- Guardamos el JSON de forma segura en un atributo 'data-' -->
+    <table class="table">
+        <tr>
+            <th>Nombre Alumno</th>
+            <th>Fecha de Nacimiento</th>
+            <th>NIF o NIE</th>
+        </tr>
+       
+        {% for alumno in alumnos %}
+        <tr>
+            <td>
+                {{alumno.nombre}}
+            </td>
+            <td>
+                {{alumno.fechaNacimiento}}
+            </td>
+            <td>
+                {{alumno.NIF}} 
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+      <script>
+        // Jinja2 transforma la lista a texto JSON y 'safe' limpia las comillas
+        console.log("JSON de alumnos recibido en la plantilla:", '{{ alumnos | tojson | safe }}');
+        const alumnosData = JSON.parse(`{{ alumnos | tojson | safe }}`);
+        // Se visualiza correctamente en la consola del navegador
+        console.log("Datos de alumnos cargados:", alumnosData);
+    </script>
+</body>
+</html>
+# QUE TOMA EL OBJETO alumnos de BACK END:
+from contextlib import asynccontextmanager
+from fastapi import FastAPI, HTTPException, Request
+# esta Aplicación se encarga de inicializar la base de datos al arrancar el servidor FastAPI
+from BBDD.Conexion.database_facultad import inicializar_base_de_datos, create_db_and_tables, session_dep
+from fastapi.templating import Jinja2Templates
+from sqlmodel import select
+from fastapi.encoders import jsonable_encoder
+
+
+# ¡IMPORTANTE! Importa aquí tus modelos para que SQLModel los registre
+#from models import Alumno, Asignatura, Matricula 
+# Importar la clase `Alumno` desde el submódulo donde está definida
+from BBDD.Modelo.Alumno import Alumno, AlumnoBase
+from BBDD.Modelo.Asignatura import Asignatura, AsignaturaBase
+from BBDD.Modelo.Profesor import Profesor, ProfesorBase
+from BBDD.Modelo.Matricula import Matricula, MatriculaBase
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Esto se ejecuta al arrancar el servidor FastAPI antes de recibir peticiones
+    print("Reiniciando el servidor FastAPI... Verificando/Creando base de datos y tablas...")
+    inicializar_base_de_datos()
+    create_db_and_tables()  # Crea las tablas basándose en los modelos importados
+    yield
+
+app = FastAPI(lifespan=lifespan)
+# una vez que el servidor esté arrancado, la base de datos y 
+# las tablas estarán listas para usarse en los endpoints de la API.
+# Por lo tanto, puedes definir tus endpoints aquí sin preocuparte por la 
+# inicialización de la base de datos, siendo inncesario para el uso del API Rest 
+# el reinicio del servidor tras la invocación de un endpoint.
+
+templates = Jinja2Templates(directory="templates")
+
+# una vez referida la carpeta de plantillas, se pueden crear endpoints que 
+# devuelvan HTML renderizado con Jinja2, en este caso para mostrar los alumnos matriculados en una asignatura concreta.
+
+@app.get("/")
+async def name(request: Request):
+#   return {"mensaje": "Servidor listo y base de datos verificada/creada"} # para probar que el servidor arranca correctamente y la base de datos se inicializa sin problemas
+    return templates.TemplateResponse(request, "home.html", {"name": "Bienvenido a la Facultad de Informática"}) 
+
+# End point para obtener un alumno por su ID
+@app.get("/alumnos/{alumno_id}", response_model=Alumno)
+async def obtener_alumno(alumno_id: int, request: Request, session: session_dep):
+    alumno = session.get(Alumno, alumno_id)
+    if alumno is None:
+        raise HTTPException(status_code=404, detail="Alumno no encontrado")
+    return templates.TemplateResponse(request, "home.html", { 
+                                                    "nombre": alumno.nombre, 
+                                                    "fecha_nacimiento": alumno.fechaNacimiento, 
+                                                    "NIF": alumno.NIF
+                                                    })
+
+# Endpoint para consultar todos los alummos para mostrar en una tabla HTML:
+@app.get("/alumnos/", response_model=list[Alumno])
+async def obtener_alumnos(session: session_dep, request: Request):
+    alumnos = session.exec(select(Alumno)).all()
+    # Convierte los objetos a un formato JSON serializable para pasarlos a la plantilla
+    alumnos_serializados = jsonable_encoder(alumnos) 
+    if alumnos is None:
+        raise HTTPException(status_code=404, detail="No hay alumnos registrados")
+    return templates.TemplateResponse(request, "alumnos.html", {"alumnos": alumnos_serializados})
+
+
+
+
